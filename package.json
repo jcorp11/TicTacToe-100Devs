@@ -1,0 +1,19 @@
+{
+  "name": "tictactoe-100devs",
+  "version": "1.0.0",
+  "description": "A project developed out of the 100Devs agency",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aisha-Umar/TicTacToe-100Devs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aisha-Umar/TicTacToe-100Devs/issues"
+  },
+  "homepage": "https://github.com/Aisha-Umar/TicTacToe-100Devs#readme"
+}
