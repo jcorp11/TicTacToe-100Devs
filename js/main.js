@@ -18,8 +18,12 @@ function clearBoard(){
 */
 
 //select all the cells and make it into an array
-const cellsArray = Array.from(document.getElementsByClassName("cell"))
 
+const cellsArray = Array.from(document.getElementsByClassName("cell"))
+//essentially we have an array of the html elements
+//1,2,3
+//4,5,6
+//7,8,9
 
 //declare variables for X and O
 
@@ -42,11 +46,11 @@ cellsArray.forEach(function(cell){
 //playGame()
 
 function playGame(e){
-	if(e.target.innerText=="" && winner == ''){
-		e.target.innerText= currentPlayer
-		if(currentPlayer == playerX)
+	if(e.target.innerText=="" && winner == ''){ //checks to see if the board is empty, and there is no winner
+		e.target.innerText= currentPlayer //the mark that gets placed on the board is same as the player's title (playerO or playerX)
+		if(currentPlayer == playerX) //switches the currentPlayer to the other player
 		currentPlayer = playerO;
-	else
+	else // if there is a mark on the board and a winner
 		currentPlayer = playerX;
 		winningMessageText.innerText = checkWhoWon();
 	}
@@ -54,21 +58,48 @@ function playGame(e){
 
 //create a method whoWon to determine the winner
 function checkWhoWon(){
-	for (let i = 0; i < 3; i++) {
-		if (cellsArray[i * 3].innerText != "" && cellsArray[i * 3].innerText == cellsArray[i * 3 + 1].innerText && cellsArray[i * 3 + 1].innerText == cellsArray[i * 3 + 2].innerText) {
+
+	//Would love clarity on how this loop works and what it's function is. 
+	for (let i = 0; i < 3; i++) { // loop for three times
+		if (cellsArray[i * 3].innerText != "" //if the space is not empty
+		&& cellsArray[i * 3].innerText == cellsArray[i * 3 + 1].innerText 
+		&& cellsArray[i * 3 + 1].innerText == cellsArray[i * 3 + 2].innerText) {
 			winner = 'Player' + cellsArray[i * 3].innerText + ' is the winner!';
 		}
 	}
-	for (let i = 0; i < 3; i++) {
-		if (cellsArray[i].innerText != "" && cellsArray[i].innerText == cellsArray[i + 3].innerText && cellsArray[i + 3].innerText == cellsArray[i + 6].innerText) {
-			winner = 'Player' + cellsArray[i].innerText + ' is the winner!';
+/***********This section checks for a vertical winner  ******************************* */
+	for (let i = 0; i < 3; i++) { //loop for three times again 
+		//-> This loop checks for vertical wins (in example - is the i)
+		//loop 1: - 0 0   loop 2: 0 - 0  loop 3: 0 0 - 
+		//loop 1: - 0 0   loop 2: 0 - 0  loop 3: 0 0 -
+		//loop 1: - 0 0   loop 2: 0 - 0  loop 3: 0 0 -
+
+		if (cellsArray[i].innerText != "" //if the space is not empty
+		&& cellsArray[i].innerText == cellsArray[i + 3].innerText // if i + 3 and i + 6 and i are all the same
+		&& cellsArray[i + 3].innerText == cellsArray[i + 6].innerText) {
+			winner = 'Player' + cellsArray[i].innerText + ' is the winner!'; //a vertical winner was found.
 		}
 	}
+	/***************************This section checks for exceptions to algorithm...***********************************************************/
      
-	if(cellsArray[0].innerText != "" && cellsArray[0].innerText == cellsArray[4].innerText && cellsArray[4].innerText == cellsArray[8].innerText)
+	//This does a diagonal check for the cases that i === 0, which cannot be defined by the muliplicative for loop above.
+	//Specifically it only checks this case:
+	// - 0 0
+	// 0 - 0
+	// 0 0 -
+	if(cellsArray[0].innerText != "" //checks for non empty space
+		&& cellsArray[0].innerText == cellsArray[4].innerText 
+		&& cellsArray[4].innerText == cellsArray[8].innerText)
 	 winner = 'Player' + cellsArray[0].innerText + ' is the winner!';
 
-	if(cellsArray[2].innerText != "" && cellsArray[2].innerText == cellsArray[4].innerText && cellsArray[4].innerText == cellsArray[6].innerText)
+	 //This checks for the 2nd diagonal case from top right to bottom left
+	 //Example
+	 // 0 0 -
+	 // 0 - 0
+	 // - 0 0
+	if(cellsArray[2].innerText != "" // checks for non empty space
+	&& cellsArray[2].innerText == cellsArray[4].innerText 
+	&& cellsArray[4].innerText == cellsArray[6].innerText)
 	 winner = 'Player' + cellsArray[2].innerText + ' is the winner!';
 	
 	return winner;
