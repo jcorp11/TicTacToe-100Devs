@@ -11,6 +11,21 @@
 /* LAYOUT
 /*******************************************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :root {
 	--cell-size: 100px;
 
@@ -19,31 +34,93 @@
 	--l: 10px; /* X line-width */
 }
 body {
+	display: flex;
+	flex-direction: column;
 	margin: 0;
+	background-color: #0d8288;
+
+}	
+h1 {
+	font-family: 'Lilita One', cursive;
+	background: rgba(255, 255, 255, 0.157);
+	text-align: center;
+	color: #ffffff;
+	padding: 2rem;
+	margin: 0 0 2rem 0;
+	font-size: 3rem;
+	letter-spacing: 0.1ch;
 }
 
+footer h3 {
+	text-align: center;
+	color:#c8d2db;
+	font-family: sans-serif;
+}
+.footerList {
+	font-family: sans-serif;
+	display: flex;
+	gap: 1rem;
+	flex-direction: row;
+	list-style-type: none;
+	flex-wrap: wrap;
+}
+
+.footerList li {
+	border-right: 1px solid white;
+	padding-right: 1rem;
+}
+
+.footerList li:last-child {
+	border-right: none;
+	padding-right: none;
+}
+
+.footerList li a{
+	color:hsla(184, 39%, 69%, 0.61);
+}
+.footerList li a:hover {
+	color:hsla(184, 52%, 20%, 0.61);
+}
 .board {
-	width: 100vw;
-	height: 100vh;
+	align-self: center;
+	width: 100%;
+	max-width: 95vw;
+	height: 70vh;
 	display: grid;
 	justify-content: center;
 	align-content: center;
 	justify-items: center;
 	align-items: center;
-	grid-template-columns: repeat(3, auto)
+	grid-template-columns: repeat(3, auto);
+	background: rgba(255, 255, 255, 0.849);
+	border-radius: 2rem;
 }
 
 .cell {
 	width: var(--cell-size);
 	height: var(--cell-size);
-	border: 1px solid black;
+	border: 3px solid hsla(184, 52%, 20%, 0.61);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: relative;
 	cursor: pointer;
+	max-width: 100%;
+	color: 	#001929;
+	font-family: 'Signika Negative', sans-serif;
+	font-size: 3rem;
 }
 
+.cell:hover {
+
+	margin: 0;
+	background: rgba(53, 109, 107, 0.094);
+	background-repeat: no-repeat;
+	
+	
+	
+
+}
 /* remove border for edges */
 .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) {
 	border-top: none;
