@@ -19,7 +19,8 @@ function clearBoard(){
 
 //select all the cells and make it into an array
 const cellsArray = Array.from(document.getElementsByClassName("cell"))
-
+//select the restart button
+const btn = document.getElementById("restartButton")
 
 //declare variables for X and O
 
@@ -37,17 +38,34 @@ let winner = '';
 function startGame(){
 cellsArray.forEach(function(cell){
 	cell.addEventListener('click', playGame)
-})
+});
 }
+
+//add an event listener to the restart button to clear the board for a new game
+btn.addEventListener('click', function (){
+    
+	for (let i = 0; i <= cellsArray.length-1; i++) {
+		cellsArray[i].innerText = "";
+    
+     }
+	 currentPlayer = playerX;
+	 winner = '';
+
+});
+
+
+
 //playGame()
 
 function playGame(e){
-	if(e.target.innerText=="" && winner == ''){
-		e.target.innerText= currentPlayer
-		if(currentPlayer == playerX)
-		currentPlayer = playerO;
-	else
-		currentPlayer = playerX;
+	if (e.target.innerText == "" && winner == '') {
+		e.target.innerText = currentPlayer;
+
+		if (currentPlayer == playerX)
+			currentPlayer = playerO;
+		else
+			currentPlayer = playerX;
+
 		winningMessageText.innerText = checkWhoWon();
 	}
 }
@@ -70,9 +88,14 @@ function checkWhoWon(){
 
 	if(cellsArray[2].innerText != "" && cellsArray[2].innerText == cellsArray[4].innerText && cellsArray[4].innerText == cellsArray[6].innerText)
 	 winner = 'Player' + cellsArray[2].innerText + ' is the winner!';
-	
-	return winner;
-}
 
+     //check to see if the game is tied
+	
+	if(!cellsArray.includes("") && winner == '')
+	 return 'The game is tied!';
+
+	 return winner;
+
+}
 
 startGame();
