@@ -11,50 +11,64 @@ let winningCombinations= [
 	[2, 4, 6]
 ]
 
-TODO: implement restart button
-function clearBoard(){
-
-}
 */
 
 //select all the cells and make it into an array
+const cellsArray = Array.from(document.getElementsByClassName("cell"));
+//select the restart button
+const btn = document.getElementById("restartButton");
 
-const cellsArray = Array.from(document.getElementsByClassName("cell"))
 //essentially we have an array of the html elements
 //1,2,3
 //4,5,6
 //7,8,9
 
-//declare variables for X and O
 
+//declare variables 
 let playerX = 'X';
 let playerO = 'O';
 let currentPlayer = playerX;
 let winner = '';
-//let cellsArray = [9];
+let countTurn=0;
 
-//create a method playGame to get the value of the mark entered and store it into the cells array
-//when a cell is clicked start game
-
-
-
+//start game and play game when a cell is clicked
 function startGame(){
 cellsArray.forEach(function(cell){
 	cell.addEventListener('click', playGame)
-})
+});
 }
-//playGame()
 
+//add an event listener to the restart button to clear the board for a new game
+btn.addEventListener('click', function (){
+    
+	for (let i = 0; i <= cellsArray.length-1; i++) {
+		cellsArray[i].innerText = "";
+     }
+	 currentPlayer = playerX;
+	 winner = '';
+	 winningMessageText.innerText = '';
+	 countTurn = 0;
+
+});
+
+//create a method playGame to get the value of the mark entered and store it into the cells array
 function playGame(e){
-	if(e.target.innerText=="" && winner == ''){ //checks to see if the board is empty, and there is no winner
-		e.target.innerText= currentPlayer //the mark that gets placed on the board is same as the player's title (playerO or playerX)
-		if(currentPlayer == playerX) //switches the currentPlayer to the other player
-		currentPlayer = playerO;
-	else // if there is a mark on the board and a winner
-		currentPlayer = playerX;
+	if (e.target.innerText == "" && winner == '') { //checks to see if the board is empty, and there is no winner
+		e.target.innerText = currentPlayer //the mark that gets placed on the board is same as the player's title (playerO or playerX)
+
+		countTurn++; // increment turn count
+		
+		if (currentPlayer == playerX) //switches the currentPlayer to the other player
+			currentPlayer = playerO;
+		else // if there is a mark on the board and a winner
+			currentPlayer = playerX;
+
+	
+		
 		winningMessageText.innerText = checkWhoWon();
 	}
 }
+
 
 //create a method whoWon to determine the winner
 function checkWhoWon(){
@@ -64,7 +78,7 @@ function checkWhoWon(){
 		if (cellsArray[i * 3].innerText != "" //if the space is not empty
 		&& cellsArray[i * 3].innerText == cellsArray[i * 3 + 1].innerText 
 		&& cellsArray[i * 3 + 1].innerText == cellsArray[i * 3 + 2].innerText) {
-			winner = 'Player' + cellsArray[i * 3].innerText + ' is the winner!';
+			winner = `Player ${cellsArray[i * 3].innerText} is the winner!`;
 		}
 	}
 /***********This section checks for a vertical winner  ******************************* */
@@ -77,7 +91,7 @@ function checkWhoWon(){
 		if (cellsArray[i].innerText != "" //if the space is not empty
 		&& cellsArray[i].innerText == cellsArray[i + 3].innerText // if i + 3 and i + 6 and i are all the same
 		&& cellsArray[i + 3].innerText == cellsArray[i + 6].innerText) {
-			winner = 'Player' + cellsArray[i].innerText + ' is the winner!'; //a vertical winner was found.
+			winner = `Player  ${cellsArray[i].innerText} is the winner!`; //a vertical winner was found.
 		}
 	}
 	/***************************This section checks for exceptions to algorithm...***********************************************************/
@@ -88,9 +102,9 @@ function checkWhoWon(){
 	// 0 - 0
 	// 0 0 -
 	if(cellsArray[0].innerText != "" //checks for non empty space
-		&& cellsArray[0].innerText == cellsArray[4].innerText 
-		&& cellsArray[4].innerText == cellsArray[8].innerText)
-	 winner = 'Player' + cellsArray[0].innerText + ' is the winner!';
+	&& cellsArray[0].innerText == cellsArray[4].innerText 
+	&& cellsArray[4].innerText == cellsArray[8].innerText)
+	 winner = `Player ${cellsArray[0].innerText} is the winner!`;
 
 	 //This checks for the 2nd diagonal case from top right to bottom left
 	 //Example
@@ -100,10 +114,15 @@ function checkWhoWon(){
 	if(cellsArray[2].innerText != "" // checks for non empty space
 	&& cellsArray[2].innerText == cellsArray[4].innerText 
 	&& cellsArray[4].innerText == cellsArray[6].innerText)
-	 winner = 'Player' + cellsArray[2].innerText + ' is the winner!';
-	
-	return winner;
-}
+	 winner = `Player ${cellsArray[2].innerText} is the winner!`;
 
+     //check if all 9 turns are done and there is no winner, then game is tied
+	if(countTurn == 9 && winner == '')
+      return 'The game is tied!';
+
+
+	 return winner;
+
+}
 
 startGame();
