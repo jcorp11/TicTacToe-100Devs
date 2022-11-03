@@ -24,6 +24,7 @@ const btn = document.getElementById("restartButton");
 //7,8,9
 
 
+
 //declare variables 
 let playerX = 'X';
 let playerO = 'O';
@@ -124,5 +125,6 @@ function checkWhoWon(){
 	 return winner;
 
 }
+
 
 startGame();
