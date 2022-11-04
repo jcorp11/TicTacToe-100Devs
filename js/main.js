@@ -48,7 +48,7 @@ cellsArray.forEach(function(cell){
 function playGame(e){
 	if(e.target.innerText=="" && winner == ''){ //checks to see if the board is empty, and there is no winner
 		e.target.innerText= currentPlayer //the mark that gets placed on the board is same as the player's title (playerO or playerX)
-		if(currentPlayer == playerX) //switches the currentPlayer to the other player
+		if(currentPlayer == playerD) //switches the currentPlayer to the other player
 		currentPlayer = playerO;
 	else // if there is a mark on the board and a winner
 		currentPlayer = playerX;
